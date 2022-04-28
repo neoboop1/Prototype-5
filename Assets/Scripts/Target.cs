@@ -12,29 +12,15 @@ public class Target : MonoBehaviour
     private float xRange = 4;
     private float ySpawnPos = -6;
     private Rigidbody targetRb;
+    private GameManager gameManager;
 
     void Start()
     {
-        targetRb = GetComponent<Rigidbody>();
-        targetRb.AddForce(RandomForce(), ForceMode.Impulse);
-        targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(),
-            ForceMode.Impulse);
-        transform.position = RandomSpawnPos();
-    }
-
-    Vector3 RandomForce()
-    {
-        return Vector3.up * Random.Range(minSpeed, maxSpeed);
-    }
-    float RandomTorque() {
-        return Random.Range(-maxTorque, maxTorque);
-    }
-    Vector3 RandomSpawnPos() {
-        return new Vector3(Random.Range(-xRange, xRange), ySpawnPos);
-    }
+        gameManager = GameObject.Find("Game Manager")
+             .GetComponent<GameManager>();}
 
     private void OnMouseDown() {
-        Destroy(gameObject); }
+        gameManager.UpdateScore(5); 
 
     private void OnTriggerEnter(Collider other) {
         Destroy(gameObject); }
