@@ -13,22 +13,17 @@ public class Target : MonoBehaviour
     private float ySpawnPos = -6;
     private Rigidbody targetRb;
     private GameManager gameManager;
+    public ParticleSystem explosionParticle
 
     void Start()
     {
         gameManager = GameObject.Find("Game Manager")
              .GetComponent<GameManager>();}
+    public int pointValue;
 
     private void OnMouseDown() {
-        gameManager.UpdateScore(5); 
-
-    private void OnTriggerEnter(Collider other) {
-        Destroy(gameObject); }
-
-    
-
-    void Update()
-    {
-        
-    }
+        Destroy(gameObject);
+        Instantiate(explosionParticle, transform.position,
+        explosionParticle.transform.rotation);
+        gameManager.UpdateScore(pointValue); }
 }
